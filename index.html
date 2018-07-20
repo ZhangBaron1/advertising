@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>淘宝广告效果</title>
+    <style>
+        #wrap{
+            width: 800px;
+            height: 492px;
+            border: 1px solid red;
+            margin: 0 auto;
+            margin-top: 30px;
+        }
+        ul{
+            margin: 0;
+            padding: 0;
+        }
+        .left{
+            float: left;
+        }
+        .right{
+            float: right;
+        }
+        ul li{
+            list-style: none;
+            width: 100px;
+            height: 80px;
+            line-height: 80px;
+            border: 1px solid deepskyblue;
+            text-align: center;
+        }
+        img{
+            width: 596px;
+            height: 492px;
+        }
+        li:hover,.mouseover{
+            background: dodgerblue;
+            color: #fff;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var oImg = document.getElementsByTagName('img')[0];
+            var oWrap = document.getElementById('wrap');
+            var ali = oWrap.getElementsByTagName('li');
+            var time = null;
+            var index = 0;
+            var last = 0;
+            var dir = true;
+            var aSrc = ['img/1.jpg','img/2.jpg','img/3.jpg','img/4.jpg','img/5.jpg','img/6.jpg','img/7.jpg','img/8.jpg','img/9.jpg','img/10.jpg','img/11.jpg','img/12.jpg'];
+            for(let i =0;i<ali.length; i++){
+                ali[i].onmouseover = function (){
+                    clearInterval(time);
+                    hover(ali[i],i);
+                }
+                ali[i].onmouseout = function (){
+                    this.classList.remove('mouseover');
+                    autoPlay();
+                }
+            }
+            function hover(obj,j){
+                ali[last].classList.remove('mouseover');
+                obj.classList.add('mouseover');
+                oImg.src = aSrc[j];
+            }
+            function autoPlay(){
+                time = setInterval(function(){
+                    dir?(index++):(index--);
+                    if(index == ali.length-1) dir = false;
+                    if(index == 0) dir = true;
+                    hover(ali[index],index);
+                    last = index;
+                },1000);
+            }
+            autoPlay();
+        }
+    </script>
+</head>
+<body>
+<div id="wrap">
+    <ul class="button left">
+        <li>图片1</li>
+        <li>图片2</li>
+        <li>图片3</li>
+        <li>图片4</li>
+        <li>图片5</li>
+        <li>图片6</li>
+    </ul>
+    <img src="img/1.jpg" alt="">
+    <ul class="button right">
+        <li>图片7</li>
+        <li>图片8</li>
+        <li>图片9</li>
+        <li>图片10</li>
+        <li>图片11</li>
+        <li>图片12</li>
+    </ul>
+</div>
+</body>
+</html>
